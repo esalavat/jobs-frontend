@@ -1,10 +1,11 @@
 import React from "react";
 
-const AddJobBtn = () => {
+const AddJobBtn = ({title}) => {
+
+    let display = title ?? "+";
+
     return (
-        <button className="bg-slate-500 rounded-xl text-white p-3">
-            +
-        </button>
+        <button className="bg-slate-500 rounded-xl text-white p-3 my-3">{display}</button>
     );
 }
 

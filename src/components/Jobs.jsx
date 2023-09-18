@@ -1,5 +1,5 @@
 import React from "react";
-import AddJobBtn from "components/AddJobBtn"
+import AddJobBtn from "components/AddJobBtn";
 
 const Jobs = ({jobs}) => {
     
@@ -20,7 +20,6 @@ const Jobs = ({jobs}) => {
                     </div>
                 );
             })}
-            <AddJobBtn />
         </div>
     );
 };
