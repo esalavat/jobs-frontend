@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
-import Jobs from "./components/Jobs";
+import JobsList from "./layouts/JobsList";
 
 const App = () => {
 
   const [jobs, setJobs] = useState([])
 
   function fetchJobsData() {
-    fetch("http://localhost:3000/jobs")
+    let controller = new AbortController();
+
+    fetch("http://localhost:3000/jobs", {
+      signal: controller.signal
+    })
       .then(response => {
         return response.json()
       })
@@ -16,16 +20,22 @@ const App = () => {
       .catch(err => {
         console.log(err);
       });
+
+    return controller;
   }
 
   useEffect(() => {
-    fetchJobsData();
+    let controller = fetchJobsData();
+
+    return () => {
+      controller.abort();
+    }
   },[]);
 
   return (
     <div>
         <h1>Jobs</h1>
-        <Jobs jobs={jobs} />
+        <JobsList jobs={jobs} />
     </div>
   );
 };
