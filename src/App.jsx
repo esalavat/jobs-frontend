@@ -16,7 +16,7 @@ const App = () => {
       })
       .then(data => {
         data.forEach(item => item.subItems = []);
-        data[1].subItems = [{"name": "item 1", "value": "Testing sub items 1"},{"name": "item 2", "value": "Testing sub items 2"},{"name": "item 3", "value": "Testing sub items 3"}]
+        data[1].subItems = [{"id": 1, "name": "item 1", "value": "Testing sub items 1"},{"id": 2, "name": "item 2", "value": "Testing sub items 2"},{"id": 3, "name": "item 3", "value": "Testing sub items 3"}]
         setJobs(data);
       })
       .catch(err => {

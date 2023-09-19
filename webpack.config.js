@@ -51,14 +51,14 @@ module.exports = {
   },
   devServer: {
     static: {
-        directory: path.join(__dirname, 'src/'),
+        directory: path.join(__dirname, 'public/'),
     },
     compress: true,
+    hot: true,
     port: 8080,
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
         template: "src/index.html"
     })

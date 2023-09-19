@@ -14,7 +14,7 @@ const JobsList = ({jobs}) => {
             </thead>
             <tbody>
                 {jobs.map((job) => 
-                    <JobsListItem job={job} />
+                    <JobsListItem job={job} key={job.id} />
                 )}
             </tbody>
         </table>
