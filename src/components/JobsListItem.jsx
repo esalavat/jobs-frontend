@@ -1,12 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 
 const JobsListItem = ({job}) => {
 
-    let expanded = job.subItems.length > 0 || job.jobUrl != "";
+    const [expandedFlag, setExpandedFlag] = useState();
+
+    let expanded = expandedFlag ?? (job.subItems.length > 0 || job.jobUrl != "");
+
+    function toggleExpanded(e) {
+        e.preventDefault();
+
+        setExpandedFlag(prev => {
+            if(prev) {
+                return !prev;
+            }
+
+            return !expanded;
+        });
+    }
 
     return (
         <>
-        <tr key={job.id} className="mb-1 justify-center">
+        <tr key={job.id} className="mb-1 justify-center" onClick={toggleExpanded}>
             <td className={"bg-slate-300 rounded-tl-md p-3" + (!expanded ? " rounded-bl-md" : "")}>{job.company}</td>
             <td className="bg-slate-300 p-3">{job.jobTitle}</td>
             <td className="bg-slate-300 p-3">{job.dateApplied}</td>
