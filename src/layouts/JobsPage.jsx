@@ -1,15 +1,15 @@
 import React from "react";
-import Jobs from "components/Jobs";
+import JobsList from "components/JobsList";
 import AddJobBtn from "../components/AddJobBtn";
 
-const JobsList = ({jobs}) => {
+const JobsPage = ({jobs}) => {
     return (
         <div className="p-10">
             <AddJobBtn title="New Job" />
-            <Jobs jobs={jobs} />
+            <JobsList jobs={jobs} />
             <AddJobBtn />
         </div>
     )
 }
 
-export default JobsList;
+export default JobsPage;

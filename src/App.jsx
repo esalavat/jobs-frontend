@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import JobsList from "./layouts/JobsList";
+import JobsPage from "./layouts/JobsPage";
 
 const App = () => {
 
@@ -15,7 +15,9 @@ const App = () => {
         return response.json()
       })
       .then(data => {
-        setJobs(data)
+        data.forEach(item => item.subItems = []);
+        data[1].subItems = [{"name": "item 1", "value": "Testing sub items 1"},{"name": "item 2", "value": "Testing sub items 2"},{"name": "item 3", "value": "Testing sub items 3"}]
+        setJobs(data);
       })
       .catch(err => {
         console.log(err);
@@ -35,7 +37,7 @@ const App = () => {
   return (
     <div>
         <h1>Jobs</h1>
-        <JobsList jobs={jobs} />
+        <JobsPage jobs={jobs} />
     </div>
   );
 };
