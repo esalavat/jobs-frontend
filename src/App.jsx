@@ -59,8 +59,6 @@ const App = () => {
         <div className="p-5">
           <h1 className="text-2xl my-3">Jobs</h1>
           <hr className="border-1 border-slate-500" />
-        </div>
-        <div className="p-10">
           <RouterProvider router={router} />
         </div>
     </div>
