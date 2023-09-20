@@ -56,6 +56,7 @@ module.exports = {
     compress: true,
     hot: true,
     port: 8080,
+    historyApiFallback: true
   },
   plugins: [
     new CleanWebpackPlugin(),
