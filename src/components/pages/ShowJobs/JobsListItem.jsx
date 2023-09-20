@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const JobsListItem = ({job}) => {
 
@@ -18,14 +19,23 @@ const JobsListItem = ({job}) => {
         });
     }
 
+    const navigate = useNavigate();
+
+    function handleEdit(id) {
+        return (e) => {
+            e.preventDefault();
+            navigate("/jobs/"+id);
+        }
+    }
+
     return (
         <React.Fragment key={job.id}>
-            <tr className="mb-1 justify-center" onClick={toggleExpanded}>
+            <tr className="mb-1 justify-center cursor-pointer" onClick={toggleExpanded}>
                 <td className={"bg-slate-300 rounded-tl-md p-3" + (!expanded ? " rounded-bl-md" : "")}>{job.company}</td>
                 <td className="bg-slate-300 p-3">{job.jobTitle}</td>
                 <td className="bg-slate-300 p-3">{job.dateApplied}</td>
-                <td className={"bg-slate-400 rounded-tr-md p-3 text-center" + (!expanded ? " rounded-br-md" : "")}>
-                    <button>Edit</button>
+                <td className={"bg-slate-400 rounded-tr-md p-3 text-center" + (!expanded ? " rounded-br-md" : "")} onClick={handleEdit(job.id)}>
+                    Edit
                 </td>
             </tr>
             {expanded 

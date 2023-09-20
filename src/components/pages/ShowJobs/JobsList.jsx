@@ -1,5 +1,5 @@
 import React from "react";
-import JobsListItem from "./JobsListItem";
+import JobsListItem from "components/pages/ShowJobs/JobsListItem";
 
 const JobsList = ({jobs}) => {
     
@@ -9,7 +9,7 @@ const JobsList = ({jobs}) => {
                 <tr>
                     <th className="border-0 text-left p-3">Company</th>
                     <th className="border-0 text-left p-3">Title</th>
-                    <th className="border-0 text-left p-3">Other Thing</th>
+                    <th className="border-0 text-left p-3">Date Applied</th>
                 </tr>
             </thead>
             <tbody>

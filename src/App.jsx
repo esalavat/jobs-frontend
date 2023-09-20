@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import JobsPage from "./layouts/JobsPage";
+import JobsPage from "components/pages/ShowJobs";
+import EditJob from "components/pages/EditJob";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 const App = () => {
 
   const [jobs, setJobs] = useState([])
 
-  function fetchJobsData() {
+  function fetchAllJobs() {
     let controller = new AbortController();
 
     fetch("http://localhost:3000/jobs", {
@@ -27,18 +29,42 @@ const App = () => {
   }
 
   useEffect(() => {
-    let controller = fetchJobsData();
+    let controller = fetchAllJobs();
 
     return () => {
       controller.abort();
     }
   },[]);
 
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <JobsPage jobs={jobs} />,
+    },
+    {
+      path: "/jobs/:id",
+      element: <EditJob />,
+      loader: async ({params}) => {
+        return fetch(`http://localhost:3000/jobs/${params.id}`)
+          .then(response => response.json())
+          .catch(err => {
+            console.log(err);
+          });
+      }
+    }
+  ]);
+
   return (
     <div>
-        <h1>Jobs</h1>
-        <JobsPage jobs={jobs} />
+        <div className="p-5">
+          <h1 className="text-2xl my-3">Jobs</h1>
+          <hr className="border-1 border-slate-500" />
+        </div>
+        <div className="p-10">
+          <RouterProvider router={router} />
+        </div>
     </div>
+
   );
 };
 
