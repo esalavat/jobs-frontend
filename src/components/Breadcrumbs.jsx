@@ -7,7 +7,7 @@ const Breadcrumbs = ({links}) => {
             {links.map((link, index) => {
                 const last = index == links.length-1;
                 return(
-                    <>
+                    <React.Fragment key={index}>
                         {last
                             ? link.display
                             : <>
@@ -17,7 +17,7 @@ const Breadcrumbs = ({links}) => {
                                 <span> &gt; </span>
                             </>
                         } 
-                    </>
+                    </React.Fragment>
                 );
             })}
         </div>
