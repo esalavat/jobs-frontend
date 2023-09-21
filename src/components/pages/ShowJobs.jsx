@@ -1,5 +1,5 @@
 import React from "react";
-import JobsList from "components/pages/ShowJobs/JobsList";
+import JobsList from "components/pages/showjobs/JobsList";
 import AddJobBtn from "components/AddJobBtn";
 import Breadcrumbs from "components/Breadcrumbs";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import JobsListItem from "components/pages/ShowJobs/JobsListItem";
+import JobsListItem from "components/pages/showjobs/JobsListItem";
 
 const JobsList = ({jobs}) => {
     

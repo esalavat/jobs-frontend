@@ -21,7 +21,7 @@ const JobsListItem = ({job}) => {
 
     const navigate = useNavigate();
 
-    function handleEdit(id) {
+    const handleEdit = (id) => {
         return (e) => {
             e.preventDefault();
             navigate("/jobs/"+id);

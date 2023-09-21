@@ -17,7 +17,6 @@ const EditJob = () => {
             } />
             <div className="p-10">
                 <h1 className="text-lg">Edit Job</h1>
-                <div className="my-2"><Link to="/" className="underline hover:no-underline">Jobs</Link> &gt; Edit Job</div>
                 <div>{job.jobTitle}</div>
                 <div>{job.company}</div>
             </div>
