@@ -7,10 +7,10 @@ const App = () => {
 
   const [jobs, setJobs] = useState([])
 
-  function fetchAllJobs() {
+  const fetchAllJobs = () => {
     let controller = new AbortController();
 
-    fetch("http://localhost:3000/jobs", {
+    fetch("http://jobsbackend:3000/jobs", {
       signal: controller.signal
     })
       .then(response => {
@@ -24,6 +24,79 @@ const App = () => {
       });
 
     return controller;
+  };
+
+  const saveJob = (job, isNew, callback) => {
+    if(isNew) {
+      createNewJob(job, callback);
+    } else {
+      updateJob(job, callback);
+    }
+  };
+
+  const replacer = function(key, value) {
+
+    if (this[key] instanceof Date) {
+        return this[key].toUTCString(); //.toISOString(); //
+    }
+
+    return value;
+  }
+
+  const createNewJob = (job, callback) => {
+
+    job.dateApplied = new Date(job.dateApplied);
+
+    fetch("http://jobsbackend:3000/jobs", {
+      method: "POST",
+      body: JSON.stringify(job),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+        if(response.status != 200) throw response;
+        return response.json()
+      })
+      .then(data => {
+        console.log("New job created.", data);
+        setJobs((prev) => {
+          return [...prev, data];
+        });
+        callback();
+      })
+      .catch(err => {
+        console.log("Error saving new job.", err);
+        callback(err);
+      });
+  }
+
+
+  const updateJob = (job, callback) => {
+
+    job.dateApplied = new Date(job.dateApplied);
+
+    fetch("http://jobsbackend:3000/jobs/" + job.id, {
+      method: "PUT",
+      body: JSON.stringify(job),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        console.log("Updated job.", data);
+        setJobs((prev) => {
+          return [...prev, data];
+        });
+        callback();
+      })
+      .catch(err => {
+        console.log("Error updating job.", err);
+        callback(err);
+      });
   }
 
   useEffect(() => {
@@ -40,8 +113,12 @@ const App = () => {
       element: <JobsPage jobs={jobs} />,
     },
     {
+      path: "/jobs/new",
+      element: <EditJob saveJob={saveJob} newItem={true} />
+    },
+    {
       path: "/jobs/:id",
-      element: <EditJob />,
+      element: <EditJob saveJob={saveJob} />,
       loader: async ({params}) => {
         return fetch(`http://localhost:3000/jobs/${params.id}`)
           .then(response => response.json())
