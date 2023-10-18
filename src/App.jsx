@@ -89,7 +89,7 @@ const App = () => {
       .then(data => {
         console.log("Updated job.", data);
         setJobs((prev) => {
-          return [...prev, data];
+          return [...prev.filter((x) => x.id != data.id), data];
         });
         callback();
       })

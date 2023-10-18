@@ -6,19 +6,18 @@ const EditJob = ({ newItem, saveJob }) => {
 
     const navigate = useNavigate();
 
-    const [job, setJob] = useState({
-        // company: "",
-        // jobTitle: "",
-        // dateApplied: new Date(),
-        // jobUrl: ""
-    });
-    
-    useEffect(() => {
-        if(!newItem) {
-            setJob(useLoaderData());
+    const initialJob = newItem 
+        ? {
+            // company: "",
+            // jobTitle: "",
+            // dateApplied: new Date(),
+            // jobUrl: ""
         }
-    },[]);
+        : useLoaderData()
 
+    const [job, setJob] = useState(initialJob);
+    
+    
     const handleChange = (event) => {
         setJob((prevJob) => {
             return { 
