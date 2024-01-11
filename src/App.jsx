@@ -120,7 +120,7 @@ const App = () => {
       path: "/jobs/:id",
       element: <EditJob saveJob={saveJob} />,
       loader: async ({params}) => {
-        return fetch(`http://localhost:3000/jobs/${params.id}`)
+        return fetch(`http://jobsbackend:3000/jobs/${params.id}`)
           .then(response => response.json())
           .catch(err => {
             console.log(err);
